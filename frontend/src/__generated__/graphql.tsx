@@ -930,20 +930,48 @@ export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
+export type ChirpBaseFragment = { __typename?: 'Chirp', id: number, authorId: number };
+
 export type ChirpsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ChirpsListQuery = { __typename?: 'Query', chirps: Array<{ __typename?: 'Chirp', id: number, authorId: number }> };
 
+export type ChirpDetailFragment = { __typename?: 'Chirp', id: number, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: number, name: string } };
 
-export const ChirpsListDocument = gql`
-    query ChirpsList {
-  chirps {
-    id
-    authorId
-  }
+export type ChirpFetchQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type ChirpFetchQuery = { __typename?: 'Query', chirp?: { __typename?: 'Chirp', id: number, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: number, name: string } } | null };
+
+export const ChirpBaseFragmentDoc = gql`
+    fragment ChirpBase on Chirp {
+  id
+  authorId
 }
     `;
+export const ChirpDetailFragmentDoc = gql`
+    fragment ChirpDetail on Chirp {
+  id
+  createdAt
+  updatedAt
+  author {
+    id
+    name
+  }
+  title
+  content
+}
+    `;
+export const ChirpsListDocument = gql`
+    query ChirpsList {
+  chirps(where: {deleted: {equals: false}}) {
+    ...ChirpBase
+  }
+}
+    ${ChirpBaseFragmentDoc}`;
 
 /**
  * __useChirpsListQuery__
@@ -971,3 +999,38 @@ export function useChirpsListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type ChirpsListQueryHookResult = ReturnType<typeof useChirpsListQuery>;
 export type ChirpsListLazyQueryHookResult = ReturnType<typeof useChirpsListLazyQuery>;
 export type ChirpsListQueryResult = Apollo.QueryResult<ChirpsListQuery, ChirpsListQueryVariables>;
+export const ChirpFetchDocument = gql`
+    query ChirpFetch($id: Int!) {
+  chirp(where: {id: $id}) {
+    ...ChirpDetail
+  }
+}
+    ${ChirpDetailFragmentDoc}`;
+
+/**
+ * __useChirpFetchQuery__
+ *
+ * To run a query within a React component, call `useChirpFetchQuery` and pass it any options that fit your needs.
+ * When your component renders, `useChirpFetchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useChirpFetchQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useChirpFetchQuery(baseOptions: Apollo.QueryHookOptions<ChirpFetchQuery, ChirpFetchQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ChirpFetchQuery, ChirpFetchQueryVariables>(ChirpFetchDocument, options);
+      }
+export function useChirpFetchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChirpFetchQuery, ChirpFetchQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ChirpFetchQuery, ChirpFetchQueryVariables>(ChirpFetchDocument, options);
+        }
+export type ChirpFetchQueryHookResult = ReturnType<typeof useChirpFetchQuery>;
+export type ChirpFetchLazyQueryHookResult = ReturnType<typeof useChirpFetchLazyQuery>;
+export type ChirpFetchQueryResult = Apollo.QueryResult<ChirpFetchQuery, ChirpFetchQueryVariables>;

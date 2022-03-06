@@ -1,6 +1,0 @@
-query ChirpsList {
-  chirps {
-    id
-    authorId
-  }
-}

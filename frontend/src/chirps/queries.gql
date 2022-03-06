@@ -1,0 +1,27 @@
+fragment ChirpBase on Chirp {
+  id
+  authorId
+}
+query ChirpsList {
+  chirps(where: { deleted: { equals: false } }) {
+    ...ChirpBase
+  }
+}
+
+fragment ChirpDetail on Chirp {
+  id
+  createdAt
+  updatedAt
+  author {
+    id
+    name
+  }
+  title
+  content
+}
+
+query ChirpFetch($id: Int!) {
+  chirp(where: { id: $id }) {
+    ...ChirpDetail
+  }
+}
