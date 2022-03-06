@@ -930,43 +930,44 @@ export type UserWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
-export type ChirpsQueryVariables = Exact<{ [key: string]: never; }>;
+export type ChirpsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ChirpsQuery = { __typename?: 'Query', chirps: Array<{ __typename?: 'Chirp', id: number }> };
+export type ChirpsListQuery = { __typename?: 'Query', chirps: Array<{ __typename?: 'Chirp', id: number, authorId: number }> };
 
 
-export const ChirpsDocument = gql`
-    query Chirps {
+export const ChirpsListDocument = gql`
+    query ChirpsList {
   chirps {
     id
+    authorId
   }
 }
     `;
 
 /**
- * __useChirpsQuery__
+ * __useChirpsListQuery__
  *
- * To run a query within a React component, call `useChirpsQuery` and pass it any options that fit your needs.
- * When your component renders, `useChirpsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useChirpsListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useChirpsListQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useChirpsQuery({
+ * const { data, loading, error } = useChirpsListQuery({
  *   variables: {
  *   },
  * });
  */
-export function useChirpsQuery(baseOptions?: Apollo.QueryHookOptions<ChirpsQuery, ChirpsQueryVariables>) {
+export function useChirpsListQuery(baseOptions?: Apollo.QueryHookOptions<ChirpsListQuery, ChirpsListQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ChirpsQuery, ChirpsQueryVariables>(ChirpsDocument, options);
+        return Apollo.useQuery<ChirpsListQuery, ChirpsListQueryVariables>(ChirpsListDocument, options);
       }
-export function useChirpsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChirpsQuery, ChirpsQueryVariables>) {
+export function useChirpsListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChirpsListQuery, ChirpsListQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ChirpsQuery, ChirpsQueryVariables>(ChirpsDocument, options);
+          return Apollo.useLazyQuery<ChirpsListQuery, ChirpsListQueryVariables>(ChirpsListDocument, options);
         }
-export type ChirpsQueryHookResult = ReturnType<typeof useChirpsQuery>;
-export type ChirpsLazyQueryHookResult = ReturnType<typeof useChirpsLazyQuery>;
-export type ChirpsQueryResult = Apollo.QueryResult<ChirpsQuery, ChirpsQueryVariables>;
+export type ChirpsListQueryHookResult = ReturnType<typeof useChirpsListQuery>;
+export type ChirpsListLazyQueryHookResult = ReturnType<typeof useChirpsListLazyQuery>;
+export type ChirpsListQueryResult = Apollo.QueryResult<ChirpsListQuery, ChirpsListQueryVariables>;

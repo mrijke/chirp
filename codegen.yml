@@ -1,8 +1,8 @@
 overwrite: true
-schema: "./generated/schema.gql"
-documents: "./frontend/src/**/*.tsx"
+schema: "./__generated__/schema.gql"
+documents: "./frontend/src/**/*.gql"
 generates:
-  frontend/src/generated/graphql.tsx:
+  frontend/src/__generated__/graphql.tsx:
     plugins:
       - "typescript"
       - "typescript-operations"

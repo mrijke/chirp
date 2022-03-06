@@ -1,11 +1,11 @@
 import "./App.css";
-import { ChirpList } from "./components/ChirpList";
+import { ChirpsPage } from "./chirps/ChirpsPage";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <ChirpList />
+        <ChirpsPage />
       </header>
     </div>
   );
