@@ -1,19 +1,31 @@
 import "reflect-metadata";
-import { PrismaClient } from "@prisma/client";
-import { ApolloServer } from "apollo-server";
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 
-import { schema } from "./gql/schema";
+import express from "express";
+import path from "path";
 
-const prisma = new PrismaClient();
+import { applyApolloMiddleware } from "./gql/middleware";
 
-export const server = new ApolloServer({
-  schema,
-  context: () => ({ prisma }),
-  plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
+const app = express();
+
+applyApolloMiddleware(app);
+
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+app.get("*", (_req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
 });
 
-const port = 4000;
-server.listen({ port }).then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
+const port = process.env.PORT ?? 5000;
+const server = app.listen({ port }, () => {
+  console.log(`🚀  Server ready!`);
 });
+
+function shutDown() {
+  server.close(() => {
+    console.log(`💤 Goodbye!`)
+  });
+  process.exit(0);
+}
+
+process.on("SIGTERM", shutDown);
+process.on("SIGINT", shutDown);
