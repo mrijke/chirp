@@ -15,8 +15,8 @@ generator typegraphql {
 // END DISABLE GENERATOR PROD
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./chirp.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Chirp {

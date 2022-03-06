@@ -3,6 +3,7 @@ import graphqlFields from "graphql-fields";
 import { GraphQLResolveInfo } from "graphql";
 import { AggregateChirpArgs } from "./args/AggregateChirpArgs";
 import { CreateChirpArgs } from "./args/CreateChirpArgs";
+import { CreateManyChirpArgs } from "./args/CreateManyChirpArgs";
 import { DeleteChirpArgs } from "./args/DeleteChirpArgs";
 import { DeleteManyChirpArgs } from "./args/DeleteManyChirpArgs";
 import { FindFirstChirpArgs } from "./args/FindFirstChirpArgs";
@@ -67,6 +68,19 @@ export class ChirpCrudResolver {
       graphqlFields(info as any)
     );
     return getPrismaFromContext(ctx).chirp.create({
+      ...args,
+      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
+    });
+  }
+
+  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
+    nullable: false
+  })
+  async createManyChirp(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyChirpArgs): Promise<AffectedRowsOutput> {
+    const { _count } = transformFields(
+      graphqlFields(info as any)
+    );
+    return getPrismaFromContext(ctx).chirp.createMany({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });

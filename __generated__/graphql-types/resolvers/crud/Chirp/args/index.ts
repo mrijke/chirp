@@ -1,5 +1,6 @@
 export { AggregateChirpArgs } from "./AggregateChirpArgs";
 export { CreateChirpArgs } from "./CreateChirpArgs";
+export { CreateManyChirpArgs } from "./CreateManyChirpArgs";
 export { DeleteChirpArgs } from "./DeleteChirpArgs";
 export { DeleteManyChirpArgs } from "./DeleteManyChirpArgs";
 export { FindFirstChirpArgs } from "./FindFirstChirpArgs";

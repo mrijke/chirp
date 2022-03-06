@@ -18,6 +18,7 @@ const actionResolversMap = {
     findFirstChirp: actionResolvers.FindFirstChirpResolver,
     chirps: actionResolvers.FindManyChirpResolver,
     createChirp: actionResolvers.CreateChirpResolver,
+    createManyChirp: actionResolvers.CreateManyChirpResolver,
     deleteChirp: actionResolvers.DeleteChirpResolver,
     updateChirp: actionResolvers.UpdateChirpResolver,
     deleteManyChirp: actionResolvers.DeleteManyChirpResolver,
@@ -31,6 +32,7 @@ const actionResolversMap = {
     findFirstUser: actionResolvers.FindFirstUserResolver,
     users: actionResolvers.FindManyUserResolver,
     createUser: actionResolvers.CreateUserResolver,
+    createManyUser: actionResolvers.CreateManyUserResolver,
     deleteUser: actionResolvers.DeleteUserResolver,
     updateUser: actionResolvers.UpdateUserResolver,
     deleteManyUser: actionResolvers.DeleteManyUserResolver,
@@ -41,14 +43,15 @@ const actionResolversMap = {
   }
 };
 const crudResolversInfo = {
-  Chirp: ["chirp", "findFirstChirp", "chirps", "createChirp", "deleteChirp", "updateChirp", "deleteManyChirp", "updateManyChirp", "upsertChirp", "aggregateChirp", "groupByChirp"],
-  User: ["user", "findFirstUser", "users", "createUser", "deleteUser", "updateUser", "deleteManyUser", "updateManyUser", "upsertUser", "aggregateUser", "groupByUser"]
+  Chirp: ["chirp", "findFirstChirp", "chirps", "createChirp", "createManyChirp", "deleteChirp", "updateChirp", "deleteManyChirp", "updateManyChirp", "upsertChirp", "aggregateChirp", "groupByChirp"],
+  User: ["user", "findFirstUser", "users", "createUser", "createManyUser", "deleteUser", "updateUser", "deleteManyUser", "updateManyUser", "upsertUser", "aggregateUser", "groupByUser"]
 };
 const argsInfo = {
   FindUniqueChirpArgs: ["where"],
   FindFirstChirpArgs: ["where", "orderBy", "cursor", "take", "skip", "distinct"],
   FindManyChirpArgs: ["where", "orderBy", "cursor", "take", "skip", "distinct"],
   CreateChirpArgs: ["data"],
+  CreateManyChirpArgs: ["data", "skipDuplicates"],
   DeleteChirpArgs: ["where"],
   UpdateChirpArgs: ["data", "where"],
   DeleteManyChirpArgs: ["where"],
@@ -60,6 +63,7 @@ const argsInfo = {
   FindFirstUserArgs: ["where", "orderBy", "cursor", "take", "skip", "distinct"],
   FindManyUserArgs: ["where", "orderBy", "cursor", "take", "skip", "distinct"],
   CreateUserArgs: ["data"],
+  CreateManyUserArgs: ["data", "skipDuplicates"],
   DeleteUserArgs: ["where"],
   UpdateUserArgs: ["data", "where"],
   DeleteManyUserArgs: ["where"],
@@ -350,13 +354,15 @@ const inputsInfo = {
   UserScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "email", "name"],
   ChirpCreateInput: ["createdAt", "updatedAt", "title", "content", "deleted", "author"],
   ChirpUpdateInput: ["createdAt", "updatedAt", "title", "content", "deleted", "author"],
+  ChirpCreateManyInput: ["id", "createdAt", "updatedAt", "title", "content", "deleted", "authorId"],
   ChirpUpdateManyMutationInput: ["createdAt", "updatedAt", "title", "content", "deleted"],
   UserCreateInput: ["email", "name", "chirps"],
   UserUpdateInput: ["email", "name", "chirps"],
+  UserCreateManyInput: ["id", "email", "name"],
   UserUpdateManyMutationInput: ["email", "name"],
   IntFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
   DateTimeFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
-  StringFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "not"],
+  StringFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not"],
   BoolFilter: ["equals", "not"],
   UserRelationFilter: ["is", "isNot"],
   ChirpCountOrderByAggregateInput: ["id", "createdAt", "updatedAt", "title", "content", "deleted", "authorId"],
@@ -366,7 +372,7 @@ const inputsInfo = {
   ChirpSumOrderByAggregateInput: ["id", "authorId"],
   IntWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not", "_count", "_avg", "_sum", "_min", "_max"],
   DateTimeWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not", "_count", "_min", "_max"],
-  StringWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "not", "_count", "_min", "_max"],
+  StringWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not", "_count", "_min", "_max"],
   BoolWithAggregatesFilter: ["equals", "not", "_count", "_min", "_max"],
   ChirpListRelationFilter: ["every", "some", "none"],
   ChirpOrderByRelationAggregateInput: ["_count"],
@@ -381,8 +387,8 @@ const inputsInfo = {
   BoolFieldUpdateOperationsInput: ["set"],
   UserUpdateOneRequiredWithoutChirpsInput: ["create", "connectOrCreate", "upsert", "connect", "update"],
   IntFieldUpdateOperationsInput: ["set", "increment", "decrement", "multiply", "divide"],
-  ChirpCreateNestedManyWithoutAuthorInput: ["create", "connectOrCreate", "connect"],
-  ChirpUpdateManyWithoutAuthorInput: ["create", "connectOrCreate", "upsert", "set", "disconnect", "delete", "connect", "update", "updateMany", "deleteMany"],
+  ChirpCreateNestedManyWithoutAuthorInput: ["create", "connectOrCreate", "createMany", "connect"],
+  ChirpUpdateManyWithoutAuthorInput: ["create", "connectOrCreate", "upsert", "createMany", "set", "disconnect", "delete", "connect", "update", "updateMany", "deleteMany"],
   NestedIntFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
   NestedDateTimeFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
   NestedStringFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "not"],
@@ -398,10 +404,12 @@ const inputsInfo = {
   UserUpdateWithoutChirpsInput: ["email", "name"],
   ChirpCreateWithoutAuthorInput: ["createdAt", "updatedAt", "title", "content", "deleted"],
   ChirpCreateOrConnectWithoutAuthorInput: ["where", "create"],
+  ChirpCreateManyAuthorInputEnvelope: ["data", "skipDuplicates"],
   ChirpUpsertWithWhereUniqueWithoutAuthorInput: ["where", "update", "create"],
   ChirpUpdateWithWhereUniqueWithoutAuthorInput: ["where", "data"],
   ChirpUpdateManyWithWhereWithoutAuthorInput: ["where", "data"],
   ChirpScalarWhereInput: ["AND", "OR", "NOT", "id", "createdAt", "updatedAt", "title", "content", "deleted", "authorId"],
+  ChirpCreateManyAuthorInput: ["id", "createdAt", "updatedAt", "title", "content", "deleted"],
   ChirpUpdateWithoutAuthorInput: ["createdAt", "updatedAt", "title", "content", "deleted"]
 };
 

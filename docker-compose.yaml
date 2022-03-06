@@ -1,0 +1,26 @@
+version: "3"
+
+volumes:
+  chirp-data:
+
+services:
+  chirp-db:
+    image: postgres:14-alpine
+    container_name: chirp-db
+    ports:
+      - 127.0.0.1:5432:5432
+    volumes:
+      - chirp-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=tsjierptsjierp
+      - POSTGRES_USER=chirp
+
+  chirp:
+    build: .
+    container_name: chirp
+    depends_on:
+      - chirp-db
+    ports:
+      - 5000:5000
+    environment:
+      - DATABASE_URL=postgresql://chirp:tsjierptsjierp@chirp-db:5432/chirp

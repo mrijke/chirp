@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { ChirpCreateManyAuthorInputEnvelope } from "../inputs/ChirpCreateManyAuthorInputEnvelope";
 import { ChirpCreateOrConnectWithoutAuthorInput } from "../inputs/ChirpCreateOrConnectWithoutAuthorInput";
 import { ChirpCreateWithoutAuthorInput } from "../inputs/ChirpCreateWithoutAuthorInput";
 import { ChirpScalarWhereInput } from "../inputs/ChirpScalarWhereInput";
@@ -28,6 +29,11 @@ export class ChirpUpdateManyWithoutAuthorInput {
     nullable: true
   })
   upsert?: ChirpUpsertWithWhereUniqueWithoutAuthorInput[] | undefined;
+
+  @TypeGraphQL.Field(_type => ChirpCreateManyAuthorInputEnvelope, {
+    nullable: true
+  })
+  createMany?: ChirpCreateManyAuthorInputEnvelope | undefined;
 
   @TypeGraphQL.Field(_type => [ChirpWhereUniqueInput], {
     nullable: true
