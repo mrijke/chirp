@@ -2,6 +2,7 @@ import "reflect-metadata";
 
 import express from "express";
 import path from "path";
+import process from "process";
 
 import { applyApolloMiddleware } from "./gql/middleware";
 
@@ -21,8 +22,9 @@ const server = app.listen({ port }, () => {
 });
 
 function shutDown() {
+  console.log("🔚 Going down!");
   server.close(() => {
-    console.log(`💤 Goodbye!`)
+    console.log(`💤 Goodbye!`);
   });
   process.exit(0);
 }

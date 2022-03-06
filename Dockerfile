@@ -1,4 +1,4 @@
-FROM node:14-alpine as frontend-builder
+FROM node:14-alpine as frontend-build
 
 WORKDIR /frontend
 
@@ -16,12 +16,13 @@ ENV NODE_ENV production
 COPY package.json yarn.lock ./
 RUN yarn install --production && yarn cache clean
 
-COPY src/ ./src
-COPY prisma/ ./prisma
-COPY utils ./utils
-COPY __generated__ ./__generated__
 COPY tsconfig.json ./
-COPY --from=frontend-builder /frontend/build ./frontend/build
+COPY prisma/ ./prisma
+COPY __generated__ ./__generated__
+COPY utils ./utils
 RUN yarn generate:db:prod
 
-CMD yarn prisma migrate deploy && yarn start
+COPY src/ ./src
+COPY --from=frontend-build /frontend/build ./frontend/build
+
+CMD yarn prisma migrate deploy && $(yarn bin)/ts-node src/index.ts
