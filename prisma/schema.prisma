@@ -5,9 +5,14 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// START DISABLE GENERATOR PROD
+
 generator typegraphql {
   provider = "typegraphql-prisma"
+  output   = "../__generated__/graphql-types"
 }
+
+// END DISABLE GENERATOR PROD
 
 datasource db {
   provider = "sqlite"

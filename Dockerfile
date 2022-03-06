@@ -19,8 +19,9 @@ RUN yarn install --production && yarn cache clean
 COPY src/ ./src
 COPY prisma/ ./prisma
 COPY utils ./utils
+COPY __generated__ ./__generated__
 COPY tsconfig.json ./
 COPY --from=frontend-builder /frontend/build ./frontend/build
-RUN yarn generate:db
+RUN yarn generate:db:prod
 
 CMD yarn prisma migrate deploy && yarn start
