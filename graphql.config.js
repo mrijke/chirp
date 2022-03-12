@@ -1,5 +1,5 @@
 module.exports = {
-  schema: ["generated/schema.gql"],
+  schema: ["__generated__/schema.gql"],
   documents: ["frontend/src/**/*.gql"],
   extensions: {
     endpoints: {

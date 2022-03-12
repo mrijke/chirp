@@ -1,7 +1,9 @@
-import { resolvers } from "../../__generated__/graphql-types";
 import { buildSchemaSync } from "type-graphql";
+import {
+  FindManyChirpResolver,
+  ChirpRelationsResolver,
+} from "../../__generated__/graphql-types";
 
 export const schema = buildSchemaSync({
-  resolvers,
-  validate: false,
+  resolvers: [FindManyChirpResolver, ChirpRelationsResolver],
 });
