@@ -1,4 +1,4 @@
-import { useChirpsListQuery } from "../__generated__/graphql";
+import { useChirpsListQuery } from "../../__generated__/graphql";
 import { Chirp } from "./Chirp";
 
 export const ChirpList: React.FC = () => {
