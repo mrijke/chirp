@@ -1,27 +1,17 @@
 fragment ChirpBase on Chirp {
   id
-  authorId
-}
-query ChirpsList {
-  chirps(where: { deleted: { equals: false } }) {
-    ...ChirpBase
-  }
-}
-
-fragment ChirpDetail on Chirp {
-  id
   createdAt
   updatedAt
-  author {
-    id
-    name
-  }
   title
   content
 }
+fragment ChirpListItem on Chirp {
+  ...ChirpBase
+  authorId
+}
 
-query ChirpFetch($id: String!) {
-  chirp(where: { id: $id }) {
-    ...ChirpDetail
+query ChirpsList {
+  chirps(where: { deleted: { equals: false } }) {
+    ...ChirpListItem
   }
 }

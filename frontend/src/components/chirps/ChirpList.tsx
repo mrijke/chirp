@@ -1,9 +1,8 @@
 import { useChirpsListQuery } from "../../__generated__/graphql";
-import { Chirp } from "./Chirp";
+import { ChirpCard } from "./ChirpCard";
 
 export const ChirpList: React.FC = () => {
   const { data, loading } = useChirpsListQuery();
-  const numChirps = data?.chirps.length ?? 0;
 
   if (loading) {
     return <div>Loading...</div>;
@@ -16,11 +15,8 @@ export const ChirpList: React.FC = () => {
   return (
     <div>
       <div>
-        We've got {numChirps} chirp{numChirps > 1 && "(s)"}!
-      </div>
-      <div>
         {data.chirps.map((chirp) => (
-          <Chirp key={chirp.id} chirpId={chirp.id} />
+          <ChirpCard className="mb-3" key={chirp.id} chirp={chirp} />
         ))}
       </div>
     </div>
