@@ -1,4 +1,3 @@
-import "./App.css";
 import { ChirpList } from "./chirps";
 
 function App() {
