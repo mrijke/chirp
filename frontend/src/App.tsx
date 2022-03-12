@@ -9,8 +9,8 @@ import { FeedPage } from "./pages/FeedPage";
 function App() {
   return (
     <BrowserRouter>
-      <div className="h-screen bg-slate-100">
-        <nav className="px-5 text-white bg-gray-800">
+      <div className="h-full min-h-screen bg-slate-100">
+        <nav className="sticky top-0 px-5 text-white bg-gray-800">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Link to="/">
