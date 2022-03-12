@@ -1,4 +1,5 @@
 import { HeartIcon } from "@heroicons/react/solid";
+import Avatar from "boring-avatars";
 
 import { ChirpListItemFragment } from "../../__generated__/graphql";
 
@@ -14,10 +15,14 @@ export const ChirpCard: React.FC<IChirpCardProps> = ({ chirp, className }) => {
     >
       <div className="flex p-5">
         <div className="flex flex-col mr-5">
-          <span className="font-semibold">{chirp.title}</span>
+          <span>
+            <Avatar name={chirp.author.name} variant="beam" />
+          </span>
+          <span>{chirp.author.name}</span>
           <span className="text-sm italic font-light">{chirp.createdAt}</span>
         </div>
         <div className="flex flex-col">
+          <div className="font-semibold">{chirp.title}</div>
           <div>{chirp.content}</div>
           <div className="flex flex-col">
             <div className="flex items-center text-sm font-light text-gray-500">

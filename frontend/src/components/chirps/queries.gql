@@ -1,13 +1,13 @@
-fragment ChirpBase on Chirp {
+fragment ChirpListItem on Chirp {
   id
+  author {
+    id
+    name
+  }
   createdAt
   updatedAt
   title
   content
-}
-fragment ChirpListItem on Chirp {
-  ...ChirpBase
-  authorId
 }
 
 query ChirpsList {

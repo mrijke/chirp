@@ -227,30 +227,26 @@ export type UserWhereInput = {
   name?: InputMaybe<StringFilter>;
 };
 
-export type ChirpBaseFragment = { __typename?: 'Chirp', id: string, createdAt: any, updatedAt: any, title: string, content: string };
-
-export type ChirpListItemFragment = { __typename?: 'Chirp', authorId: number, id: string, createdAt: any, updatedAt: any, title: string, content: string };
+export type ChirpListItemFragment = { __typename?: 'Chirp', id: string, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: number, name: string } };
 
 export type ChirpsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ChirpsListQuery = { __typename?: 'Query', chirps: Array<{ __typename?: 'Chirp', authorId: number, id: string, createdAt: any, updatedAt: any, title: string, content: string }> };
+export type ChirpsListQuery = { __typename?: 'Query', chirps: Array<{ __typename?: 'Chirp', id: string, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: number, name: string } }> };
 
-export const ChirpBaseFragmentDoc = gql`
-    fragment ChirpBase on Chirp {
+export const ChirpListItemFragmentDoc = gql`
+    fragment ChirpListItem on Chirp {
   id
+  author {
+    id
+    name
+  }
   createdAt
   updatedAt
   title
   content
 }
     `;
-export const ChirpListItemFragmentDoc = gql`
-    fragment ChirpListItem on Chirp {
-  ...ChirpBase
-  authorId
-}
-    ${ChirpBaseFragmentDoc}`;
 export const ChirpsListDocument = gql`
     query ChirpsList {
   chirps(where: {deleted: {equals: false}}) {
