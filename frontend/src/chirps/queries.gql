@@ -21,7 +21,7 @@ fragment ChirpDetail on Chirp {
 }
 
 query ChirpFetch($id: Int!) {
-  chirps(where: { id: { equals: $id }, deleted: { equals: false } }) {
+  chirp(where: { id: $id }) {
     ...ChirpDetail
   }
 }

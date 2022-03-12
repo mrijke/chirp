@@ -137,6 +137,7 @@ input NestedStringFilter {
 }
 
 type Query {
+  chirp(where: ChirpWhereUniqueInput!): Chirp
   chirps(cursor: ChirpWhereUniqueInput, distinct: [ChirpScalarFieldEnum!], orderBy: [ChirpOrderByWithRelationInput!], skip: Int, take: Int, where: ChirpWhereInput): [Chirp!]!
 }
 

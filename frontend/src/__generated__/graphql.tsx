@@ -148,7 +148,13 @@ export type NestedStringFilter = {
 
 export type Query = {
   __typename?: 'Query';
+  chirp?: Maybe<Chirp>;
   chirps: Array<Chirp>;
+};
+
+
+export type QueryChirpArgs = {
+  where: ChirpWhereUniqueInput;
 };
 
 
@@ -235,7 +241,7 @@ export type ChirpFetchQueryVariables = Exact<{
 }>;
 
 
-export type ChirpFetchQuery = { __typename?: 'Query', chirps: Array<{ __typename?: 'Chirp', id: number, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: number, name: string } }> };
+export type ChirpFetchQuery = { __typename?: 'Query', chirp?: { __typename?: 'Chirp', id: number, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: number, name: string } } | null };
 
 export const ChirpBaseFragmentDoc = gql`
     fragment ChirpBase on Chirp {
@@ -292,7 +298,7 @@ export type ChirpsListLazyQueryHookResult = ReturnType<typeof useChirpsListLazyQ
 export type ChirpsListQueryResult = Apollo.QueryResult<ChirpsListQuery, ChirpsListQueryVariables>;
 export const ChirpFetchDocument = gql`
     query ChirpFetch($id: Int!) {
-  chirps(where: {id: {equals: $id}, deleted: {equals: false}}) {
+  chirp(where: {id: $id}) {
     ...ChirpDetail
   }
 }
