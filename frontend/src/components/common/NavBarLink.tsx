@@ -21,13 +21,13 @@ export const NavBarLink: React.FC<INavBarLinkProps> = ({
     : "hover:text-white hover:bg-gray-700 hover:cursor-pointer";
 
   return (
-    <span className="inline-flex text-sm font-medium text-gray-300">
-      <span className={`py-2 px-3 rounded-md ${labelClasses}`}>
-        <Link to={to}>{label}</Link>
+    <Link to={to}>
+      <span className="inline-flex text-sm font-medium text-gray-300">
+        <span className={`py-2 px-3 rounded-md ${labelClasses}`}>{label}</span>
+        <span className="flex relative top-2 right-2 -mt-1 -mr-1 w-3 h-3">
+          {badge && <Badge />}
+        </span>
       </span>
-      <span className="flex relative top-2 right-2 -mt-1 -mr-1 w-3 h-3">
-        {badge && <Badge />}
-      </span>
-    </span>
+    </Link>
   );
 };

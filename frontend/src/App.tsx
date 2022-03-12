@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { NavBarButton } from "./components/common/NavBarButton";
 
 import { NavBarLink } from "./components/common/NavBarLink";
+import { AddChirpPage } from "./pages/AddChirpPage";
 import { FeedPage } from "./pages/FeedPage";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<FeedPage />} />
+            <Route path="/addchirp" element={<AddChirpPage />} />
           </Routes>
         </main>
       </div>
