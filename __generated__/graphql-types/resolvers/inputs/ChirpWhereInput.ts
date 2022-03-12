@@ -27,10 +27,10 @@ export class ChirpWhereInput {
   })
   NOT?: ChirpWhereInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => IntFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  id?: IntFilter | undefined;
+  id?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeFilter, {
     nullable: true

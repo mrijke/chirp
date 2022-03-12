@@ -14,7 +14,7 @@ type Chirp {
   content: String!
   createdAt: DateTime!
   deleted: Boolean!
-  id: Int!
+  id: String!
   title: String!
   updatedAt: DateTime!
 }
@@ -59,13 +59,13 @@ input ChirpWhereInput {
   content: StringFilter
   createdAt: DateTimeFilter
   deleted: BoolFilter
-  id: IntFilter
+  id: StringFilter
   title: StringFilter
   updatedAt: DateTimeFilter
 }
 
 input ChirpWhereUniqueInput {
-  id: Int
+  id: String
 }
 
 """

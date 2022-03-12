@@ -12,10 +12,10 @@ import { ChirpSumAggregate } from "../outputs/ChirpSumAggregate";
   isAbstract: true
 })
 export class ChirpGroupBy {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: false

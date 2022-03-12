@@ -8,6 +8,11 @@ import { UserCreateNestedOneWithoutChirpsInput } from "../inputs/UserCreateNeste
   isAbstract: true
 })
 export class ChirpCreateInput {
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  id?: string | undefined;
+
   @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })

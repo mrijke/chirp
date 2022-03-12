@@ -2,7 +2,7 @@ import { HeartIcon } from "@heroicons/react/solid";
 
 import { useChirpFetchQuery } from "../../__generated__/graphql";
 
-export const Chirp: React.FC<{ chirpId: number }> = ({ chirpId }) => {
+export const Chirp: React.FC<{ chirpId: string }> = ({ chirpId }) => {
   const { data } = useChirpFetchQuery({ variables: { id: chirpId } });
 
   return (

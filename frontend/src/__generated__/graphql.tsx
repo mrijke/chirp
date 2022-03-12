@@ -29,7 +29,7 @@ export type Chirp = {
   content: Scalars['String'];
   createdAt: Scalars['DateTime'];
   deleted: Scalars['Boolean'];
-  id: Scalars['Int'];
+  id: Scalars['String'];
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
@@ -74,13 +74,13 @@ export type ChirpWhereInput = {
   content?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   deleted?: InputMaybe<BoolFilter>;
-  id?: InputMaybe<IntFilter>;
+  id?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
 export type ChirpWhereUniqueInput = {
-  id?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['String']>;
 };
 
 export type DateTimeFilter = {
@@ -227,21 +227,21 @@ export type UserWhereInput = {
   name?: InputMaybe<StringFilter>;
 };
 
-export type ChirpBaseFragment = { __typename?: 'Chirp', id: number, authorId: number };
+export type ChirpBaseFragment = { __typename?: 'Chirp', id: string, authorId: number };
 
 export type ChirpsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ChirpsListQuery = { __typename?: 'Query', chirps: Array<{ __typename?: 'Chirp', id: number, authorId: number }> };
+export type ChirpsListQuery = { __typename?: 'Query', chirps: Array<{ __typename?: 'Chirp', id: string, authorId: number }> };
 
-export type ChirpDetailFragment = { __typename?: 'Chirp', id: number, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: number, name: string } };
+export type ChirpDetailFragment = { __typename?: 'Chirp', id: string, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: number, name: string } };
 
 export type ChirpFetchQueryVariables = Exact<{
-  id: Scalars['Int'];
+  id: Scalars['String'];
 }>;
 
 
-export type ChirpFetchQuery = { __typename?: 'Query', chirp?: { __typename?: 'Chirp', id: number, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: number, name: string } } | null };
+export type ChirpFetchQuery = { __typename?: 'Query', chirp?: { __typename?: 'Chirp', id: string, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: number, name: string } } | null };
 
 export const ChirpBaseFragmentDoc = gql`
     fragment ChirpBase on Chirp {
@@ -297,7 +297,7 @@ export type ChirpsListQueryHookResult = ReturnType<typeof useChirpsListQuery>;
 export type ChirpsListLazyQueryHookResult = ReturnType<typeof useChirpsListLazyQuery>;
 export type ChirpsListQueryResult = Apollo.QueryResult<ChirpsListQuery, ChirpsListQueryVariables>;
 export const ChirpFetchDocument = gql`
-    query ChirpFetch($id: Int!) {
+    query ChirpFetch($id: String!) {
   chirp(where: {id: $id}) {
     ...ChirpDetail
   }

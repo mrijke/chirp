@@ -26,10 +26,10 @@ export class ChirpScalarWhereWithAggregatesInput {
   })
   NOT?: ChirpScalarWhereWithAggregatesInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => IntWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
-  id?: IntWithAggregatesFilter | undefined;
+  id?: StringWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
     nullable: true

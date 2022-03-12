@@ -20,7 +20,7 @@ fragment ChirpDetail on Chirp {
   content
 }
 
-query ChirpFetch($id: Int!) {
+query ChirpFetch($id: String!) {
   chirp(where: { id: $id }) {
     ...ChirpDetail
   }
