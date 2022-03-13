@@ -10,6 +10,11 @@ export class UserCreateWithoutChirpsInput {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
+  id!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
   email!: string;
 
   @TypeGraphQL.Field(_type => String, {

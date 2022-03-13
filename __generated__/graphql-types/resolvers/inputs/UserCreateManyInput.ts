@@ -7,10 +7,10 @@ import { DecimalJSScalar } from "../../scalars";
   isAbstract: true
 })
 export class UserCreateManyInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: true
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
   })
-  id?: number | undefined;
+  id!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

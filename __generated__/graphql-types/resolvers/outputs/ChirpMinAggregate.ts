@@ -37,8 +37,8 @@ export class ChirpMinAggregate {
   })
   deleted!: boolean | null;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  authorId!: number | null;
+  authorId!: string | null;
 }

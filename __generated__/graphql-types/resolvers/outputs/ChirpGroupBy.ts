@@ -2,11 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { ChirpAvgAggregate } from "../outputs/ChirpAvgAggregate";
 import { ChirpCountAggregate } from "../outputs/ChirpCountAggregate";
 import { ChirpMaxAggregate } from "../outputs/ChirpMaxAggregate";
 import { ChirpMinAggregate } from "../outputs/ChirpMinAggregate";
-import { ChirpSumAggregate } from "../outputs/ChirpSumAggregate";
 
 @TypeGraphQL.ObjectType("ChirpGroupBy", {
   isAbstract: true
@@ -42,25 +40,15 @@ export class ChirpGroupBy {
   })
   deleted!: boolean;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  authorId!: number;
+  authorId!: string;
 
   @TypeGraphQL.Field(_type => ChirpCountAggregate, {
     nullable: true
   })
   _count!: ChirpCountAggregate | null;
-
-  @TypeGraphQL.Field(_type => ChirpAvgAggregate, {
-    nullable: true
-  })
-  _avg!: ChirpAvgAggregate | null;
-
-  @TypeGraphQL.Field(_type => ChirpSumAggregate, {
-    nullable: true
-  })
-  _sum!: ChirpSumAggregate | null;
 
   @TypeGraphQL.Field(_type => ChirpMinAggregate, {
     nullable: true

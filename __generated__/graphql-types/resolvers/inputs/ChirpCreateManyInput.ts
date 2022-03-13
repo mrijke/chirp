@@ -37,8 +37,8 @@ export class ChirpCreateManyInput {
   })
   deleted?: boolean | undefined;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  authorId!: number;
+  authorId!: string;
 }

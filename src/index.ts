@@ -5,10 +5,14 @@ import express from "express";
 import process from "process";
 
 import { applyApolloMiddleware } from "./gql/middleware";
+import { handleAuth0PostAuth } from "./api";
 
 const app = express();
 
 app.use(cors());
+app.use(express.json());
+
+app.post("/api/auth/hook", handleAuth0PostAuth);
 
 applyApolloMiddleware(app);
 

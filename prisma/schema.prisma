@@ -19,6 +19,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  // no autoincrement or something because this comes from auth0
+  id     String  @id
+  email  String  @unique
+  name   String
+  chirps Chirp[]
+}
+
 model Chirp {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -27,12 +35,5 @@ model Chirp {
   content   String
   deleted   Boolean  @default(false)
   author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-}
-
-model User {
-  id     Int     @id @default(autoincrement())
-  email  String  @unique
-  name   String
-  chirps Chirp[]
+  authorId  String
 }

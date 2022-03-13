@@ -9,10 +9,10 @@ import { UserCount } from "../resolvers/outputs/UserCount";
   isAbstract: true
 })
 export class User {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false

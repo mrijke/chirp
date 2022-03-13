@@ -2,11 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { ChirpAvgOrderByAggregateInput } from "../inputs/ChirpAvgOrderByAggregateInput";
 import { ChirpCountOrderByAggregateInput } from "../inputs/ChirpCountOrderByAggregateInput";
 import { ChirpMaxOrderByAggregateInput } from "../inputs/ChirpMaxOrderByAggregateInput";
 import { ChirpMinOrderByAggregateInput } from "../inputs/ChirpMinOrderByAggregateInput";
-import { ChirpSumOrderByAggregateInput } from "../inputs/ChirpSumOrderByAggregateInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("ChirpOrderByWithAggregationInput", {
@@ -53,11 +51,6 @@ export class ChirpOrderByWithAggregationInput {
   })
   _count?: ChirpCountOrderByAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => ChirpAvgOrderByAggregateInput, {
-    nullable: true
-  })
-  _avg?: ChirpAvgOrderByAggregateInput | undefined;
-
   @TypeGraphQL.Field(_type => ChirpMaxOrderByAggregateInput, {
     nullable: true
   })
@@ -67,9 +60,4 @@ export class ChirpOrderByWithAggregationInput {
     nullable: true
   })
   _min?: ChirpMinOrderByAggregateInput | undefined;
-
-  @TypeGraphQL.Field(_type => ChirpSumOrderByAggregateInput, {
-    nullable: true
-  })
-  _sum?: ChirpSumOrderByAggregateInput | undefined;
 }

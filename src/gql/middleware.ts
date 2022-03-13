@@ -1,13 +1,11 @@
-import { PrismaClient } from "@prisma/client";
 import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
-
 import type { Express } from "express";
+
+import { prisma } from "../db";
 
 import { schema } from "./schema";
 import { getUserFromAuthHeader } from "./jwt";
-
-const prisma = new PrismaClient();
 
 const server = new ApolloServer({
   schema,

@@ -40,8 +40,8 @@ export class Chirp {
 
   author?: User;
 
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  authorId!: number;
+  authorId!: string;
 }
