@@ -13,7 +13,7 @@
     "generate:gql": "ts-node utils/generate-gql-schema.ts && graphql-codegen --config codegen.yml",
     "generate:watch": "graphql-codegen --config codegen.yml --watch",
     "start": "ts-node src/index.ts",
-    "heroku-postinstall": "yarn generate:db:prod"
+    "build": "yarn generate:db:prod"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.6.2",
