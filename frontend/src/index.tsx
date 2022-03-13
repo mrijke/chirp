@@ -12,7 +12,7 @@ import {
 } from "@apollo/client";
 
 const httpLink = createHttpLink({
-  uri: "/graphql",
+  uri: process.env.REACT_APP_GRAPHQL_ENDPOINT ?? "http://localhost:5000",
 });
 
 const client = new ApolloClient({

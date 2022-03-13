@@ -1,22 +1,16 @@
 import "reflect-metadata";
 
+import cors from "cors";
 import express from "express";
-import path from "path";
 import process from "process";
 
 import { applyApolloMiddleware } from "./gql/middleware";
 
 const app = express();
 
+app.use(cors());
+
 applyApolloMiddleware(app);
-
-if (process.env.NODE_ENV?.toLowerCase() === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/build")));
-
-  app.get("*", (_req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
-  });
-}
 
 const port = process.env.PORT ?? 5000;
 const server = app.listen({ port }, () => {
