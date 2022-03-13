@@ -5,12 +5,20 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-co
 import type { Express } from "express";
 
 import { schema } from "./schema";
+import { getUserFromAuthHeader } from "./jwt";
 
 const prisma = new PrismaClient();
 
 const server = new ApolloServer({
   schema,
-  context: () => ({ prisma }),
+  context: async ({ req }) => {
+    const authHeader = req.headers.authorization;
+    let user;
+    if (authHeader) {
+      user = await getUserFromAuthHeader(authHeader);
+    }
+    return { prisma, user };
+  },
   plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
 });
 

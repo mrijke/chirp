@@ -12,7 +12,7 @@
     "generate:db:prod": "ts-node utils/generate-prisma-prod.ts",
     "generate:gql": "ts-node utils/generate-gql-schema.ts && graphql-codegen --config codegen.yml",
     "generate:watch": "graphql-codegen --config codegen.yml --watch",
-    "start": "ts-node src/index.ts",
+    "start": "ts-node --transpile-only src/index.ts",
     "build": "yarn generate:db:prod"
   },
   "devDependencies": {
@@ -29,13 +29,17 @@
   "dependencies": {
     "@prisma/client": "3.10.0",
     "@types/graphql-fields": "1.3.4",
+    "@types/jsonwebtoken": "8.5.8",
     "apollo-server-express": "3.6.3",
     "class-validator": "0.13.2",
     "cors": "2.8.5",
+    "dotenv": "16.0.0",
     "express": "4.17.3",
     "graphql": "15.8.0",
     "graphql-fields": "2.0.3",
     "graphql-scalars": "1.15.0",
+    "jsonwebtoken": "8.5.1",
+    "jwks-rsa": "2.0.5",
     "prisma": "3.10.0",
     "reflect-metadata": "0.1.13",
     "ts-node": "10.7.0",

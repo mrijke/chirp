@@ -13,5 +13,6 @@ COPY utils ./utils
 RUN yarn generate:db:prod
 
 COPY src/ ./src
+COPY .env ./
 
 CMD yarn prisma migrate deploy && $(yarn bin)/ts-node src/index.ts
