@@ -3,6 +3,11 @@ import * as React from "react";
 import { Button } from "../../components/common/Button";
 import { FormInputField } from "../../components/common/forms/FormInputField";
 import { FormTextAreaField } from "../../components/common/forms/FormTextAreaField";
+import {
+  ChirpsListDocument,
+  ChirpsListQuery,
+  useCreateChirpMutation,
+} from "../../__generated__/graphql";
 
 interface IAddChirpFormData {
   title: string;
@@ -15,7 +20,34 @@ export const AddChirpForm: React.FC = () => {
     formState: { isSubmitting },
     control,
   } = useForm<IAddChirpFormData>({ mode: "onTouched" });
-  const onSubmit = React.useCallback((data) => console.log(data), []);
+  const [createChirp] = useCreateChirpMutation({
+    update: (cache, { data }) => {
+      if (data?.createChirp) {
+        // we made a chirp!
+        const listQuery = cache.readQuery<ChirpsListQuery>({
+          query: ChirpsListDocument,
+        });
+        let newList = [data.createChirp];
+        if (listQuery?.chirps.length) {
+          // the newest chirp should be on top so we just concat the old ones
+          newList = newList.concat(listQuery.chirps);
+        }
+
+        cache.writeQuery({
+          query: ChirpsListDocument,
+          data: { chirps: newList },
+        });
+      }
+    },
+  });
+  const onSubmit = React.useCallback(
+    async (data: IAddChirpFormData) => {
+      await createChirp({
+        variables: { input: { ...data } },
+      });
+    },
+    [createChirp]
+  );
 
   return (
     <div className="flex mt-1">

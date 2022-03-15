@@ -10,13 +10,18 @@ input BoolFilter {
 
 type Chirp {
   author: User!
-  authorId: Int!
+  authorId: String!
   content: String!
   createdAt: DateTime!
   deleted: Boolean!
   id: String!
   title: String!
   updatedAt: DateTime!
+}
+
+input ChirpCreateInput {
+  content: String!
+  title: String!
 }
 
 input ChirpListRelationFilter {
@@ -55,7 +60,7 @@ input ChirpWhereInput {
   NOT: [ChirpWhereInput!]
   OR: [ChirpWhereInput!]
   author: UserRelationFilter
-  authorId: IntFilter
+  authorId: StringFilter
   content: StringFilter
   createdAt: DateTimeFilter
   deleted: BoolFilter
@@ -84,15 +89,8 @@ input DateTimeFilter {
   notIn: [DateTime!]
 }
 
-input IntFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntFilter
-  notIn: [Int!]
+type Mutation {
+  createChirp(data: ChirpCreateInput!): Chirp!
 }
 
 input NestedBoolFilter {
@@ -109,17 +107,6 @@ input NestedDateTimeFilter {
   lte: DateTime
   not: NestedDateTimeFilter
   notIn: [DateTime!]
-}
-
-input NestedIntFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntFilter
-  notIn: [Int!]
 }
 
 input NestedStringFilter {
@@ -169,7 +156,7 @@ input StringFilter {
 type User {
   _count: UserCount
   email: String!
-  id: Int!
+  id: String!
   name: String!
 }
 
@@ -195,6 +182,6 @@ input UserWhereInput {
   OR: [UserWhereInput!]
   chirps: ChirpListRelationFilter
   email: StringFilter
-  id: IntFilter
+  id: StringFilter
   name: StringFilter
 }

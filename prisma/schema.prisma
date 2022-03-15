@@ -28,12 +28,17 @@ model User {
 }
 
 model Chirp {
+  /// @TypeGraphQL.omit(input: ["create", "update"])
   id        String   @id @default(uuid())
+  /// @TypeGraphQL.omit(input: ["create", "update"])
   createdAt DateTime @default(now())
+  /// @TypeGraphQL.omit(input: ["create", "update"])
   updatedAt DateTime @updatedAt
   title     String
   content   String
+  /// @TypeGraphQL.omit(input: ["create"])
   deleted   Boolean  @default(false)
+  /// @TypeGraphQL.omit(input: ["create", "update"])
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
 }

@@ -11,7 +11,7 @@ fragment ChirpListItem on Chirp {
 }
 
 query ChirpsList {
-  chirps(where: { deleted: { equals: false } }) {
+  chirps(where: { deleted: { equals: false } }, orderBy: { createdAt: desc }) {
     ...ChirpListItem
   }
 }

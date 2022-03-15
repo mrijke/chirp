@@ -1,4 +1,4 @@
-import jwt, { JwtHeader, SigningKeyCallback } from "jsonwebtoken";
+import jwt, { JwtHeader, SigningKeyCallback, JwtPayload } from "jsonwebtoken";
 import { JwksClient } from "jwks-rsa";
 import "dotenv/config";
 
@@ -16,7 +16,9 @@ function getKey(header: JwtHeader, callback: SigningKeyCallback) {
   });
 }
 
-export async function getUserFromAuthHeader(authHeader: string) {
+export async function getJwtPayloadFromAuthHeader(
+  authHeader: string
+): Promise<JwtPayload> {
   const [, token] = authHeader.split(" ");
   const result = new Promise((resolve, reject) => {
     jwt.verify(
@@ -37,5 +39,5 @@ export async function getUserFromAuthHeader(authHeader: string) {
       }
     );
   });
-  return result;
+  return result as JwtPayload;
 }

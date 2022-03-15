@@ -16,7 +16,7 @@ export const ChirpCard: React.FC<IChirpCardProps> = ({ chirp, className }) => {
       <div className="flex p-5">
         <div className="flex flex-col mr-5">
           <span>
-            <Avatar name={chirp.author.name} variant="beam" />
+            <Avatar name={chirp.author.id} variant="beam" />
           </span>
           <span>{chirp.author.name}</span>
           <span className="text-sm italic font-light">{chirp.createdAt}</span>

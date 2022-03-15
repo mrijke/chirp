@@ -5,10 +5,13 @@ import {
   FindUniqueChirpResolver,
 } from "../../__generated__/graphql-types";
 
+import { CreateChirpResolver } from "./resolvers/chirp";
+
 export const schema = buildSchemaSync({
   resolvers: [
     FindManyChirpResolver,
     FindUniqueChirpResolver,
     ChirpRelationsResolver,
+    CreateChirpResolver,
   ],
 });

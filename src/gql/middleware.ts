@@ -5,7 +5,7 @@ import type { Express } from "express";
 import { prisma } from "../db";
 
 import { schema } from "./schema";
-import { getUserFromAuthHeader } from "./jwt";
+import { getJwtPayloadFromAuthHeader } from "./jwt";
 
 const server = new ApolloServer({
   schema,
@@ -13,7 +13,8 @@ const server = new ApolloServer({
     const authHeader = req.headers.authorization;
     let user;
     if (authHeader) {
-      user = await getUserFromAuthHeader(authHeader);
+      const jwtPayload = await getJwtPayloadFromAuthHeader(authHeader);
+      user = await prisma.user.findUnique({ where: { id: jwtPayload.sub } });
     }
     return { prisma, user };
   },

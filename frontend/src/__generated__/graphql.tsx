@@ -25,13 +25,18 @@ export type BoolFilter = {
 export type Chirp = {
   __typename?: 'Chirp';
   author: User;
-  authorId: Scalars['Int'];
+  authorId: Scalars['String'];
   content: Scalars['String'];
   createdAt: Scalars['DateTime'];
   deleted: Scalars['Boolean'];
   id: Scalars['String'];
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
+};
+
+export type ChirpCreateInput = {
+  content: Scalars['String'];
+  title: Scalars['String'];
 };
 
 export type ChirpListRelationFilter = {
@@ -70,7 +75,7 @@ export type ChirpWhereInput = {
   NOT?: InputMaybe<Array<ChirpWhereInput>>;
   OR?: InputMaybe<Array<ChirpWhereInput>>;
   author?: InputMaybe<UserRelationFilter>;
-  authorId?: InputMaybe<IntFilter>;
+  authorId?: InputMaybe<StringFilter>;
   content?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   deleted?: InputMaybe<BoolFilter>;
@@ -94,15 +99,14 @@ export type DateTimeFilter = {
   notIn?: InputMaybe<Array<Scalars['DateTime']>>;
 };
 
-export type IntFilter = {
-  equals?: InputMaybe<Scalars['Int']>;
-  gt?: InputMaybe<Scalars['Int']>;
-  gte?: InputMaybe<Scalars['Int']>;
-  in?: InputMaybe<Array<Scalars['Int']>>;
-  lt?: InputMaybe<Scalars['Int']>;
-  lte?: InputMaybe<Scalars['Int']>;
-  not?: InputMaybe<NestedIntFilter>;
-  notIn?: InputMaybe<Array<Scalars['Int']>>;
+export type Mutation = {
+  __typename?: 'Mutation';
+  createChirp: Chirp;
+};
+
+
+export type MutationCreateChirpArgs = {
+  data: ChirpCreateInput;
 };
 
 export type NestedBoolFilter = {
@@ -119,17 +123,6 @@ export type NestedDateTimeFilter = {
   lte?: InputMaybe<Scalars['DateTime']>;
   not?: InputMaybe<NestedDateTimeFilter>;
   notIn?: InputMaybe<Array<Scalars['DateTime']>>;
-};
-
-export type NestedIntFilter = {
-  equals?: InputMaybe<Scalars['Int']>;
-  gt?: InputMaybe<Scalars['Int']>;
-  gte?: InputMaybe<Scalars['Int']>;
-  in?: InputMaybe<Array<Scalars['Int']>>;
-  lt?: InputMaybe<Scalars['Int']>;
-  lte?: InputMaybe<Scalars['Int']>;
-  not?: InputMaybe<NestedIntFilter>;
-  notIn?: InputMaybe<Array<Scalars['Int']>>;
 };
 
 export type NestedStringFilter = {
@@ -196,7 +189,7 @@ export type User = {
   __typename?: 'User';
   _count?: Maybe<UserCount>;
   email: Scalars['String'];
-  id: Scalars['Int'];
+  id: Scalars['String'];
   name: Scalars['String'];
 };
 
@@ -223,16 +216,23 @@ export type UserWhereInput = {
   OR?: InputMaybe<Array<UserWhereInput>>;
   chirps?: InputMaybe<ChirpListRelationFilter>;
   email?: InputMaybe<StringFilter>;
-  id?: InputMaybe<IntFilter>;
+  id?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
 };
 
-export type ChirpListItemFragment = { __typename?: 'Chirp', id: string, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: number, name: string } };
+export type ChirpListItemFragment = { __typename?: 'Chirp', id: string, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: string, name: string } };
 
 export type ChirpsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ChirpsListQuery = { __typename?: 'Query', chirps: Array<{ __typename?: 'Chirp', id: string, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: number, name: string } }> };
+export type ChirpsListQuery = { __typename?: 'Query', chirps: Array<{ __typename?: 'Chirp', id: string, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: string, name: string } }> };
+
+export type CreateChirpMutationVariables = Exact<{
+  input: ChirpCreateInput;
+}>;
+
+
+export type CreateChirpMutation = { __typename?: 'Mutation', createChirp: { __typename?: 'Chirp', id: string, createdAt: any, updatedAt: any, title: string, content: string, author: { __typename?: 'User', id: string, name: string } } };
 
 export const ChirpListItemFragmentDoc = gql`
     fragment ChirpListItem on Chirp {
@@ -249,7 +249,7 @@ export const ChirpListItemFragmentDoc = gql`
     `;
 export const ChirpsListDocument = gql`
     query ChirpsList {
-  chirps(where: {deleted: {equals: false}}) {
+  chirps(where: {deleted: {equals: false}}, orderBy: {createdAt: desc}) {
     ...ChirpListItem
   }
 }
@@ -281,3 +281,36 @@ export function useChirpsListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type ChirpsListQueryHookResult = ReturnType<typeof useChirpsListQuery>;
 export type ChirpsListLazyQueryHookResult = ReturnType<typeof useChirpsListLazyQuery>;
 export type ChirpsListQueryResult = Apollo.QueryResult<ChirpsListQuery, ChirpsListQueryVariables>;
+export const CreateChirpDocument = gql`
+    mutation CreateChirp($input: ChirpCreateInput!) {
+  createChirp(data: $input) {
+    ...ChirpListItem
+  }
+}
+    ${ChirpListItemFragmentDoc}`;
+export type CreateChirpMutationFn = Apollo.MutationFunction<CreateChirpMutation, CreateChirpMutationVariables>;
+
+/**
+ * __useCreateChirpMutation__
+ *
+ * To run a mutation, you first call `useCreateChirpMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateChirpMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createChirpMutation, { data, loading, error }] = useCreateChirpMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateChirpMutation(baseOptions?: Apollo.MutationHookOptions<CreateChirpMutation, CreateChirpMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateChirpMutation, CreateChirpMutationVariables>(CreateChirpDocument, options);
+      }
+export type CreateChirpMutationHookResult = ReturnType<typeof useCreateChirpMutation>;
+export type CreateChirpMutationResult = Apollo.MutationResult<CreateChirpMutation>;
+export type CreateChirpMutationOptions = Apollo.BaseMutationOptions<CreateChirpMutation, CreateChirpMutationVariables>;

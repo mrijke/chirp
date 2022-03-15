@@ -1,0 +1,5 @@
+mutation CreateChirp($input: ChirpCreateInput!) {
+  createChirp(data: $input) {
+    ...ChirpListItem
+  }
+}
