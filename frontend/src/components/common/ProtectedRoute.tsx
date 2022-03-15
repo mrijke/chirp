@@ -1,16 +1,14 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { useLocation } from "react-router-dom";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+import React from "react";
 
 import { Spinner } from "./Spinner";
 
-export const ProtectedRoute: React.FC = ({ children }) => {
-  const location = useLocation();
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
+export const ProtectedRoute: React.FC<{ component: React.ComponentType }> = ({
+  component,
+}) => {
+  const Component = withAuthenticationRequired(component, {
+    onRedirecting: () => <Spinner label="Redirecting to login..." />,
+  });
 
-  if (!isAuthenticated) {
-    loginWithRedirect({ appState: { returnTo: location.pathname } });
-    return <Spinner label="Redirecting..." />;
-  }
-
-  return <>{children}</>;
+  return <Component />;
 };

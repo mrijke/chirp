@@ -40,11 +40,7 @@ function App() {
           <Route path="/" element={<FeedPage />} />
           <Route
             path="/addchirp"
-            element={
-              <ProtectedRoute>
-                <AddChirpPage />
-              </ProtectedRoute>
-            }
+            element={<ProtectedRoute component={AddChirpPage} />}
           />
         </Routes>
       </main>

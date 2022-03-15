@@ -7,6 +7,8 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { useAuth0 } from "@auth0/auth0-react";
 
+const cache = new InMemoryCache();
+
 export const Auth0ApolloProvider: React.FC = ({ children }) => {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
@@ -33,7 +35,7 @@ export const Auth0ApolloProvider: React.FC = ({ children }) => {
 
   const client = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
+    cache,
   });
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
