@@ -3,7 +3,7 @@ import {
   FindManyChirpResolver,
   ChirpRelationsResolver,
   FindUniqueChirpResolver,
-} from "../../__generated__/graphql-types";
+} from "../__generated__/graphql-types";
 
 import { CreateChirpResolver } from "./resolvers/chirp";
 

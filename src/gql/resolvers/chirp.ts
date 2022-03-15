@@ -1,6 +1,6 @@
 import { AuthenticationError } from "apollo-server-express";
 import { Args, Ctx, Mutation, Resolver } from "type-graphql";
-import { Chirp, CreateChirpArgs } from "../../../__generated__/graphql-types";
+import { Chirp, CreateChirpArgs } from "../../__generated__/graphql-types";
 import { IContext } from "../interfaces";
 
 @Resolver(Chirp)
