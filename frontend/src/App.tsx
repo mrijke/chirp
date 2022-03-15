@@ -4,11 +4,12 @@ import { Routes, Route, Link } from "react-router-dom";
 
 import { AuthenticationButton } from "./components/common/AuthenticationButton";
 import { NavBarLink } from "./components/common/NavBarLink";
+import { ProtectedRoute } from "./components/common/ProtectedRoute";
 import { AddChirpPage } from "./pages/AddChirpPage";
 import { FeedPage } from "./pages/FeedPage";
 
 function App() {
-  const { isLoading } = useAuth0();
+  const { isLoading, isAuthenticated } = useAuth0();
 
   if (isLoading) {
     return null;
@@ -24,7 +25,9 @@ function App() {
             </Link>
             <div className="flex items-baseline ml-10 space-x-4">
               <NavBarLink label="Feed" badge to="/" />
-              <NavBarLink label="Add a chirp" to="/addchirp" />
+              {isAuthenticated && (
+                <NavBarLink label="Add a chirp" to="/addchirp" />
+              )}
             </div>
           </div>
           <div className="flex items-center">
@@ -35,7 +38,14 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<FeedPage />} />
-          <Route path="/addchirp" element={<AddChirpPage />} />
+          <Route
+            path="/addchirp"
+            element={
+              <ProtectedRoute>
+                <AddChirpPage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
     </div>
