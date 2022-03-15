@@ -2,6 +2,7 @@ import "reflect-metadata";
 
 import cors from "cors";
 import express from "express";
+import morgan from "morgan";
 import process from "process";
 
 import { applyApolloMiddleware } from "./gql/middleware";
@@ -11,6 +12,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(morgan("combined"));
 
 app.post("/api/auth/hook", handleAuth0PostAuth);
 

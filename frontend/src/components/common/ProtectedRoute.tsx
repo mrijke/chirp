@@ -8,7 +8,7 @@ export const ProtectedRoute: React.FC = ({ children }) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   if (!isAuthenticated) {
-    loginWithRedirect({ appState: { from: location } });
+    loginWithRedirect({ appState: { returnTo: location.pathname } });
     return <Spinner label="Redirecting..." />;
   }
 
